@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ConsumableApplicationType {
-    private String name;
-    private List<ConsumableApplicationCheck> applicationCheckList;
+public class ConsumableApplicationCheck {
+    private String check;
+    private List<String> permittedRoles;
 }

@@ -1,14 +1,13 @@
 package com.nimblecode.integratedaviationpersonellicencing.controllers;
 
 import com.nimblecode.integratedaviationpersonellicencing.models.consumables.ConsumableApplicationType;
+import com.nimblecode.integratedaviationpersonellicencing.models.entities.ApplicationCheck;
 import com.nimblecode.integratedaviationpersonellicencing.models.entities.ApplicationType;
+import com.nimblecode.integratedaviationpersonellicencing.models.transferables.TransferableApplicationCheck;
 import com.nimblecode.integratedaviationpersonellicencing.models.transferables.TransferableApplicationType;
 import com.nimblecode.integratedaviationpersonellicencing.service.ApplicationTypeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +27,11 @@ public class ApplicationTypeController {
     @GetMapping("/available-application-types")
     public List<TransferableApplicationType> availableApplicationTypes(){
         return applicationTypeService.availableApplicationTypes().stream().map(ApplicationType::serializeForTransfer).toList();
+    }
+
+    @GetMapping("/find-allowed-application-checks")
+    public List<TransferableApplicationCheck> findAllowedApplicationChecks(@RequestParam String applicationTypeId,@RequestParam String role){
+        return applicationTypeService.findAllowedApplicationChecks(applicationTypeId,role).stream().map(ApplicationCheck::serializeForTransfer).toList();
     }
 
 }

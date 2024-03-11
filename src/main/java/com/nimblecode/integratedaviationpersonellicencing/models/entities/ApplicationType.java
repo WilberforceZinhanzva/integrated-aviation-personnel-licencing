@@ -3,11 +3,10 @@ package com.nimblecode.integratedaviationpersonellicencing.models.entities;
 import com.nimblecode.integratedaviationpersonellicencing.models.interfaces.IDatabaseEntity;
 import com.nimblecode.integratedaviationpersonellicencing.models.interfaces.ITransferable;
 import com.nimblecode.integratedaviationpersonellicencing.models.transferables.TransferableApplicationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -17,6 +16,8 @@ public class ApplicationType implements IDatabaseEntity {
     @Id
     private String id = UUID.randomUUID().toString();
     private String name;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ApplicationCheck> applicationChecks;
 
     @Override
     public TransferableApplicationType serializeForTransfer() {
