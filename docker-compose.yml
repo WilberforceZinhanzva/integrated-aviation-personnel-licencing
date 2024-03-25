@@ -3,9 +3,9 @@ version: '3'
 services:
   mariadb:
     image: bitnami/mariadb:latest
-    container_name: mariadb_db
+    container_name: aviation_db
     ports:
-      - "3303:3306"
+      - "3305:3306"
     environment:
       - "MARIADB_ROOT_PASSWORD=skdcnwauicn2ucnaecasdsajdnizucawencascdca"
       - "MARIADB_USER=developer"
@@ -24,7 +24,6 @@ services:
     build: ./
     image: wibzin/aviation_image
     container_name: aviation_container
-    depends_on: mariadb
     ports:
       - "8017:8017"
     networks:
@@ -43,5 +42,4 @@ networks:
 
 volumes:
   mariadb-data:
-  rabbitmq_data:
     driver: local
