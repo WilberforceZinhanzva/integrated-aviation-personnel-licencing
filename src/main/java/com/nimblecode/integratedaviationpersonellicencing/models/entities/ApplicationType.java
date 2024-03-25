@@ -6,6 +6,7 @@ import com.nimblecode.integratedaviationpersonellicencing.models.transferables.T
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class ApplicationType implements IDatabaseEntity {
     private String id = UUID.randomUUID().toString();
     private String name;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<ApplicationCheck> applicationChecks;
+    private List<ApplicationCheck> applicationChecks = new ArrayList<>();
 
     @Override
     public TransferableApplicationType serializeForTransfer() {

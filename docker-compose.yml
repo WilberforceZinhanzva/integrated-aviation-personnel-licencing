@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  mariadb:
+    image: bitnami/mariadb:latest
+    container_name: mariadb_db
+    ports:
+      - "3303:3306"
+    environment:
+      - "MARIADB_ROOT_PASSWORD=skdcnwauicn2ucnaecasdsajdnizucawencascdca"
+      - "MARIADB_USER=developer"
+      - "MARIADB_PASSWORD=password123"
+      - "MARIADB_EXTRA_FLAGS=--max-connect-errors=1000 --max_connections=300"
+      - "MARIADB_DATABASE=aviation"
+    restart: on-failure
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      net:
+        ipv4_address: 192.168.1.192
+
+
+  aviation-licencing:
+    build: ./
+    image: wibzin/aviation_image
+    container_name: aviation_container
+    ports:
+      - "8017:8017"
+    networks:
+      net:
+        ipv4_address: 192.168.1.188
+
+
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+
+
+volumes:
+  mariadb-data:
+  rabbitmq_data:
+    driver: local

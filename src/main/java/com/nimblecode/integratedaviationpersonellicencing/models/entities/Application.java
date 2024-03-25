@@ -8,9 +8,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+
 @Data
 @Entity
 @Table(name="applications")
@@ -25,9 +24,9 @@ public class Application implements IDatabaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
-    @OneToMany
-    private List<CompletedCheck> completedCheckList;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CompletedCheck> completedCheckList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
 
 
@@ -38,7 +37,7 @@ public class Application implements IDatabaseEntity {
                 .applicationRef(applicationRef)
                 .applicantName(applicantName)
                 .applicationType(applicationType)
-                .pendingChecks(Arrays.asList(pendingChecks.split(",")))
+                .pendingChecks(pendingChecks())
                 .applicationStatus(applicationStatus)
                 .completedCheckList(completedCheckList.stream().map(CompletedCheck::serializeForTransfer).toList())
                 .comments(comments.stream().map(Comment::serializeForTransfer).toList())
@@ -46,8 +45,18 @@ public class Application implements IDatabaseEntity {
                 .build();
     }
 
+    public List<String> pendingChecks(){
+        if(Optional.ofNullable(pendingChecks).isPresent() && !pendingChecks.isEmpty())
+            return Arrays.asList(pendingChecks.split(","));
+        return new ArrayList<>();
+
+    }
     public void addPendingChecks(List<String> checks){
-        List<String> existingChecks = Arrays.asList(pendingChecks.split(","));
+        List<String> existingChecks = new ArrayList<>();
+        if(!Optional.ofNullable(pendingChecks).isEmpty())
+            existingChecks = Arrays.asList(pendingChecks.split(","));
+
+
         for(int i = 0; i < checks.size(); i++){
             if(!existingChecks.contains(checks.get(i)))
                existingChecks.add(checks.get(i));
@@ -65,10 +74,21 @@ public class Application implements IDatabaseEntity {
     }
 
     public void removeChecks(List<String> checks){
-        List<String> existingChecks = Arrays.asList(pendingChecks.split(","));
+        List<String> existingChecks = new ArrayList<>();
+
+        if(Optional.ofNullable(pendingChecks).isPresent()){
+            if(!pendingChecks.isEmpty()){
+                for(String s : pendingChecks.split(",")){
+                    existingChecks.add(s);
+                }
+            }
+
+
+        }
+
+
         for(int i = 0; i < checks.size(); i++){
-            if(!existingChecks.contains(checks.get(i)))
-                existingChecks.remove(checks.get(i));
+            existingChecks.remove(checks.get(i));
         }
         StringBuilder s = new StringBuilder();
         for(int i = 0; i < existingChecks.size(); i++){

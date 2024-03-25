@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/application-requirements")
@@ -21,7 +22,7 @@ public class ApplicationRequirementsController {
         return applicationRequirementService.addApplicationRequirement(consumable).serializeForTransfer();
     }
 
-    @GetMapping("/application-requirements/{applicationType}")
+    @GetMapping("/{applicationType}")
     public List<TransferableApplicationRequirement> applicationRequirements(@PathVariable String applicationType){
         return applicationRequirementService.applicationRequirements(applicationType).stream().map(ApplicationRequirement::serializeForTransfer).toList();
     }

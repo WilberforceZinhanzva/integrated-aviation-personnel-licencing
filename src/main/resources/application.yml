@@ -1,8 +1,7 @@
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/integrated_aviation_licencing?createDatabaseIfNotExist=true
-    username: root
-    password: password123
-  jpa:
-    hibernate:
-      ddl-auto: update
+  profiles:
+    active: prod
+
+
+server:
+  port: 8017

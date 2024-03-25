@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/application-types")
@@ -20,7 +21,7 @@ public class ApplicationTypeController {
 
 
     @PostMapping("/add-application-type")
-    public TransferableApplicationType addApplicationType(ConsumableApplicationType consumable){
+    public TransferableApplicationType addApplicationType(@RequestBody ConsumableApplicationType consumable){
         return applicationTypeService.addApplicationType(consumable).serializeForTransfer();
     }
 

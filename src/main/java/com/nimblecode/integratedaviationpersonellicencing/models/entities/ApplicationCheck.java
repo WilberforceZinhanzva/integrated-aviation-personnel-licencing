@@ -5,9 +5,7 @@ import com.nimblecode.integratedaviationpersonellicencing.models.transferables.T
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -30,12 +28,15 @@ public class ApplicationCheck implements IDatabaseEntity {
     }
 
     public List<String> permittedRolesList(){
+        if(Optional.ofNullable(permittedRoles).isEmpty())
+            this.permittedRoles="";
         String[] roles = permittedRoles.split(",");
         return Arrays.asList(roles);
     }
 
     public void addPermittedRoles(List<String> roles){
-        List<String> existingPermittedRoles = Arrays.asList(permittedRoles.split(","));
+        List<String> existingPermittedRoles = new ArrayList<>();
+
         for(String newRole : roles){
             if(!existingPermittedRoles.contains(newRole))
                 existingPermittedRoles.add(newRole);
@@ -51,6 +52,8 @@ public class ApplicationCheck implements IDatabaseEntity {
     }
 
     public void removePermittedRoles(List<String> roles){
+        if(Optional.ofNullable(permittedRoles).isEmpty())
+            this.permittedRoles="";
         List<String> existingPermittedRoles = Arrays.asList(permittedRoles.split(","));
         for(String r : roles){
             existingPermittedRoles.remove(r);

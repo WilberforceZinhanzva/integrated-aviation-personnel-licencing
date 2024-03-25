@@ -9,6 +9,7 @@ import com.nimblecode.integratedaviationpersonellicencing.models.repositories.Pe
 import com.nimblecode.integratedaviationpersonellicencing.models.repositories.RoleRepository;
 import com.nimblecode.integratedaviationpersonellicencing.models.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     public User addUser(ConsumableUser consumable){
@@ -33,7 +35,7 @@ public class UserService {
         User user = new User();
         user.setUsername(consumable.getUsername());
         user.setFullname(consumable.getFullname());
-        user.setPassword(consumable.getPassword());
+        user.setPassword(passwordEncoder.encode(consumable.getPassword()));
         user.setRoles(roles);
         user.setPermissions(permissions);
         return userRepository.save(user);
@@ -48,7 +50,7 @@ public class UserService {
             User user = new User();
             user.setFullname("System Admin Account");
             user.setUsername("admin");
-            user.setPassword("admin");
+            user.setPassword(passwordEncoder.encode("admin"));
 
 
             Optional<Role> adminRole = roleRepository.findByName("Admin");

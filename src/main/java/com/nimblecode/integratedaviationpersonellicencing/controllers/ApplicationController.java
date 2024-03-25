@@ -2,6 +2,7 @@ package com.nimblecode.integratedaviationpersonellicencing.controllers;
 
 import com.nimblecode.integratedaviationpersonellicencing.models.consumables.ConsumableApplication;
 import com.nimblecode.integratedaviationpersonellicencing.models.entities.Application;
+import com.nimblecode.integratedaviationpersonellicencing.models.entities.AssignedApplication;
 import com.nimblecode.integratedaviationpersonellicencing.models.transferables.TransferableApplication;
 import com.nimblecode.integratedaviationpersonellicencing.service.ApplicationsService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/applications")
 @RequiredArgsConstructor
@@ -34,5 +36,15 @@ public class ApplicationController {
     @GetMapping("/available-applications")
     public List<TransferableApplication> availableApplications(){
         return applicationsService.availableApplications().stream().map(Application::serializeForTransfer).toList();
+    }
+
+    @PostMapping("/assign-application")
+    public AssignedApplication assignApplication(@RequestParam String applicationId,@RequestParam String assignee){
+        return applicationsService.assignApplication(applicationId, assignee);
+    }
+
+    @GetMapping("/assigned-applications")
+    public List<TransferableApplication> assignedApplications(){
+        return applicationsService.assignedApplications().stream().map(Application::serializeForTransfer).toList();
     }
 }
