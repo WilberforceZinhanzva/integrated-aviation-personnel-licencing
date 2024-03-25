@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name="comments")
+@Table(name="av_comments")
 public class Comment implements IDatabaseEntity {
     @Id
     private String id = UUID.randomUUID().toString();

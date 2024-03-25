@@ -16,7 +16,7 @@ public class ApplicationCheck implements IDatabaseEntity {
     private String requiredCheck;
     private String permittedRoles;
     @ManyToOne
-    @JoinColumn(name="application_type")
+    @JoinColumn(name="av_application_type")
     private ApplicationType applicationType;
 
     @Override

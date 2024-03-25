@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 @Data
 @Entity
-@Table(name="assigned_applications")
+@Table(name="av_assigned_applications")
 public class AssignedApplication {
     @Id
     private String id = UUID.randomUUID().toString();

@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name="roles")
+@Table(name="av_roles")
 public class Role implements IDatabaseEntity {
     @Id
     private String id = UUID.randomUUID().toString();

@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name="permissions")
+@Table(name="av_permissions")
 public class Permission implements IDatabaseEntity {
     @Id
     private String id = UUID.randomUUID().toString();

@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 @Data
 @Entity
-@Table(name="completed_checks")
+@Table(name="av_completed_checks")
 public class CompletedCheck implements IDatabaseEntity {
     @Id
     private String id = UUID.randomUUID().toString();

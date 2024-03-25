@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name="application_requirements")
+@Table(name="av_application_requirements")
 public class ApplicationRequirement implements IDatabaseEntity {
     @Id
     private String id = UUID.randomUUID().toString();
