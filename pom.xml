@@ -26,12 +26,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>${hikaricp.version}</version>
-            <scope>compile</scope>
+            <version>5.1.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -39,12 +40,6 @@
             <scope>runtime</scope>
         </dependency>
 
-
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
