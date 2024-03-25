@@ -17,18 +17,19 @@ services:
       - mariadb-data:/var/lib/mysql
     networks:
       net:
-        ipv4_address: 192.168.1.192
+        ipv4_address: 193.168.1.192
 
 
   aviation-licencing:
     build: ./
     image: wibzin/aviation_image
     container_name: aviation_container
+    depends_on: mariadb
     ports:
       - "8017:8017"
     networks:
       net:
-        ipv4_address: 192.168.1.188
+        ipv4_address: 193.168.1.188
 
 
 
@@ -37,7 +38,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 192.168.1.0/24
+        - subnet: 193.168.1.0/24
 
 
 volumes:
