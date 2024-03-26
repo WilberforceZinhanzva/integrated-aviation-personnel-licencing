@@ -21,8 +21,6 @@ public class Role implements IDatabaseEntity {
     private String id = UUID.randomUUID().toString();
     private String name;
     private LocalDateTime createdOn = LocalDateTime.now();
-    @ManyToMany
-    private List<User> users;
 
     @Override
     public TransferableRole serializeForTransfer() {

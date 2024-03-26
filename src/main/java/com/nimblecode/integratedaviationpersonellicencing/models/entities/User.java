@@ -22,21 +22,10 @@ public class User implements IDatabaseEntity, UserDetails {
     private String fullname;
     private String username;
     private String password;
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(
-            name="user_roles",
-            joinColumns = @JoinColumn(name="user",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="role",referencedColumnName = "id")
-
-    )
-    private List<Role> roles;
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(
-            name="user_permissions",
-            joinColumns = @JoinColumn(name="user",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="permission",referencedColumnName = "id")
-    )
-    private List<Permission> permissions;
+    @Transient
+    private List<Role> roles = new ArrayList<>();
+    @Transient
+    private List<Permission> permissions=new ArrayList<>();
 
     @Override
     public TransferableUser serializeForTransfer() {
@@ -44,8 +33,6 @@ public class User implements IDatabaseEntity, UserDetails {
                 .id(id)
                 .fullname(fullname)
                 .username(username)
-                .roles(roles.stream().map(Role::serializeForTransfer).toList())
-                .permissions(permissions.stream().map(Permission::serializeForTransfer).toList())
                 .build();
     }
 
